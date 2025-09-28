@@ -1095,20 +1095,185 @@ function showButtonLoading(button, isLoading) {
     }
 }
 
-// 📏 Add dynamic scrollbar when needed
+// 📏 ENHANCED: Add dynamic scrollbar when needed (ASSIGNMENT REQUIREMENT)
 function addDynamicScrollbar() {
+    console.log('📏 Checking if dynamic scrollbar is needed...');
+    
     const tableWrapper = document.querySelector('.table-wrapper');
     const table = document.querySelector('.students-table');
+    const tableBody = document.querySelector('#studentsTableBody');
     
-    if (tableWrapper && table) {
-        // Check if content overflows
-        if (table.scrollHeight > tableWrapper.clientHeight) {
-            tableWrapper.classList.add('custom-scrollbar');
-            console.log('📏 Dynamic scrollbar added');
-        } else {
-            tableWrapper.classList.remove('custom-scrollbar');
-        }
+    if (!tableWrapper || !table || !tableBody) {
+        console.log('📏 Table elements not found');
+        return;
     }
+    
+    // Get current dimensions
+    const wrapperHeight = tableWrapper.clientHeight;
+    const tableHeight = table.scrollHeight;
+    const studentCount = tableBody.children.length;
+    
+    console.log(`📏 Wrapper height: ${wrapperHeight}px, Table height: ${tableHeight}px, Students: ${studentCount}`);
+    
+    // JAVASCRIPT-CONTROLLED SCROLLBAR LOGIC
+    if (tableHeight > wrapperHeight || studentCount > 5) {
+        // ADD SCROLLBAR DYNAMICALLY
+        addVerticalScrollbar(tableWrapper);
+        console.log('✅ Dynamic vertical scrollbar ADDED by JavaScript');
+    } else {
+        // REMOVE SCROLLBAR DYNAMICALLY
+        removeVerticalScrollbar(tableWrapper);
+        console.log('❌ Dynamic vertical scrollbar REMOVED by JavaScript');
+    }
+    
+    // Also check horizontal overflow
+    const wrapperWidth = tableWrapper.clientWidth;
+    const tableWidth = table.scrollWidth;
+    
+    if (tableWidth > wrapperWidth) {
+        addHorizontalScrollbar(tableWrapper);
+        console.log('✅ Dynamic horizontal scrollbar ADDED by JavaScript');
+    } else {
+        removeHorizontalScrollbar(tableWrapper);
+        console.log('❌ Dynamic horizontal scrollbar REMOVED by JavaScript');
+    }
+}
+
+// 📏 ADDED: JavaScript function to add vertical scrollbar
+function addVerticalScrollbar(element) {
+    // Remove existing scrollbar classes
+    element.classList.remove('no-scrollbar');
+    
+    // Add custom scrollbar styling via JavaScript
+    element.style.overflowY = 'auto';
+    element.style.scrollbarWidth = 'thin';
+    element.style.scrollbarColor = '#FF1493 #f1f1f1';
+    
+    // Add custom scrollbar class for webkit browsers
+    element.classList.add('js-custom-scrollbar-vertical');
+    
+    // Create dynamic CSS for webkit scrollbars
+    if (!document.getElementById('dynamic-scrollbar-styles')) {
+        const style = document.createElement('style');
+        style.id = 'dynamic-scrollbar-styles';
+        style.textContent = `
+            .js-custom-scrollbar-vertical::-webkit-scrollbar {
+                width: 12px;
+            }
+            .js-custom-scrollbar-vertical::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 6px;
+            }
+            .js-custom-scrollbar-vertical::-webkit-scrollbar-thumb {
+                background: linear-gradient(135deg, #FF1493, #8A2BE2);
+                border-radius: 6px;
+                border: 2px solid #f1f1f1;
+            }
+            .js-custom-scrollbar-vertical::-webkit-scrollbar-thumb:hover {
+                background: linear-gradient(135deg, #8A2BE2, #663399);
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Add scroll event listener for smooth scrolling
+    element.addEventListener('scroll', handleSmoothScroll);
+}
+
+// 📏 ADDED: JavaScript function to remove vertical scrollbar
+function removeVerticalScrollbar(element) {
+    element.style.overflowY = 'hidden';
+    element.classList.remove('js-custom-scrollbar-vertical');
+    element.classList.add('no-scrollbar');
+    element.removeEventListener('scroll', handleSmoothScroll);
+}
+
+// 📏 ADDED: JavaScript function to add horizontal scrollbar
+function addHorizontalScrollbar(element) {
+    element.style.overflowX = 'auto';
+    element.classList.add('js-custom-scrollbar-horizontal');
+    
+    // Update dynamic styles for horizontal scrollbar
+    const existingStyle = document.getElementById('dynamic-scrollbar-styles');
+    if (existingStyle) {
+        existingStyle.textContent += `
+            .js-custom-scrollbar-horizontal::-webkit-scrollbar:horizontal {
+                height: 12px;
+            }
+            .js-custom-scrollbar-horizontal::-webkit-scrollbar-track:horizontal {
+                background: #f1f1f1;
+                border-radius: 6px;
+            }
+            .js-custom-scrollbar-horizontal::-webkit-scrollbar-thumb:horizontal {
+                background: linear-gradient(90deg, #FF1493, #8A2BE2);
+                border-radius: 6px;
+                border: 2px solid #f1f1f1;
+            }
+        `;
+    }
+}
+
+// 📏 ADDED: JavaScript function to remove horizontal scrollbar
+function removeHorizontalScrollbar(element) {
+    element.style.overflowX = 'hidden';
+    element.classList.remove('js-custom-scrollbar-horizontal');
+}
+
+// 📏 ADDED: Smooth scroll handler
+function handleSmoothScroll(e) {
+    // Add smooth scrolling behavior
+    e.target.style.scrollBehavior = 'smooth';
+}
+
+// 📏 ADDED: Monitor scrollbar needs on window resize
+function monitorScrollbarNeeds() {
+    let resizeTimeout;
+    
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            addDynamicScrollbar();
+            console.log('📏 Scrollbar needs re-evaluated on window resize');
+        }, 250);
+    });
+}
+
+// 📏 ADDED: Advanced scrollbar management
+function manageScrollbars() {
+    // Check scrollbar needs every time data changes
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'childList' && 
+                mutation.target.id === 'studentsTableBody') {
+                // Student added or removed - check scrollbar needs
+                setTimeout(addDynamicScrollbar, 100);
+            }
+        });
+    });
+    
+    // Start observing table body for changes
+    const tableBody = document.querySelector('#studentsTableBody');
+    if (tableBody) {
+        observer.observe(tableBody, {
+            childList: true,
+            subtree: true
+        });
+        console.log('📏 Started monitoring table changes for scrollbar management');
+    }
+}
+
+// 📏 ADDED: Initialize all scrollbar functionality
+function initializeScrollbarManagement() {
+    // Initial scrollbar check
+    addDynamicScrollbar();
+    
+    // Monitor window resize
+    monitorScrollbarNeeds();
+    
+    // Monitor table changes
+    manageScrollbars();
+    
+    console.log('📏 Complete JavaScript scrollbar management initialized');
 }
 
 // ========================================
