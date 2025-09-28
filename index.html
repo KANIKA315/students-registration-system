@@ -161,33 +161,44 @@
                     </div>
 
                     <!-- Students Table Container -->
-                    <div class="table-container" id="tableContainer">
-                        <div class="table-wrapper">
-                            <table class="students-table" id="studentsTable">
-                                <thead>
-                                    <tr>
-                                        <th><i class="fas fa-hashtag"></i> ID</th>
-                                        <th><i class="fas fa-user"></i> Name</th>
-                                        <th><i class="fas fa-envelope"></i> Email</th>
-                                        <th><i class="fas fa-phone"></i> Contact</th>
-                                        <th><i class="fas fa-cogs"></i> Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="studentsTableBody">
-                                    <!-- Student records will be inserted here by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
+<div class="table-container" id="tableContainer">
+    <div class="table-wrapper">
+        <table class="students-table" id="studentsTable">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-hashtag"></i> ID</th>
+                    <th><i class="fas fa-user"></i> Name</th>
+                    <th><i class="fas fa-envelope"></i> Email</th>
+                    <th><i class="fas fa-phone"></i> Contact</th>
+                    <th><i class="fas fa-cogs"></i> Actions</th>
+                </tr>
+            </thead>
+            <tbody id="studentsTableBody">
+                <tr>
+                    <td data-label="ID">230231022</td>
+                    <td data-label="Name">Kanika Bajaj</td>
+                    <td data-label="Email">kanikabajaj2014@gmail.com</td>
+                    <td data-label="Contact">+1234567890</td>
+                    <td data-label="Actions" class="action-buttons">
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <!-- Additional rows will be dynamically added here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
 
-                        <!-- Empty State -->
-                        <div class="empty-state" id="emptyState">
-                            <div class="empty-icon">
-                                <i class="fas fa-user-graduate"></i>
-                            </div>
-                            <h3>No Students Registered Yet!</h3>
-                            <p>Add your first student using the form above ✨</p>
-                        </div>
-                    </div>
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState">
+        <div class="empty-icon">
+            <i class="fas fa-user-graduate"></i>
+        </div>
+        <h3>No Students Registered Yet!</h3>
+        <p>Add your first student using the form above ✨</p>
+    </div>
+</div>
+
                 </div>
             </section>
 
