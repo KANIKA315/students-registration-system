@@ -194,7 +194,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 👨‍💻 Author
 Kanika Bajaj
 
-GitHub: [@KANIKA315](https://github.com/KANIKA315/students-registration-system)
+GitHub: [LINK TO REPO](https://github.com/KANIKA315/students-registration-system)
 Email: kanikabajaj2014@gmail.com
 Portfolio:[ Kanika's Portfolio](https://animated-begonia-e49bbc.netlify.app/)
 
