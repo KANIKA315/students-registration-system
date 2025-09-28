@@ -1447,6 +1447,37 @@ body {
     .students-table tbody tr:hover {
         transform: translateX(10px) scale(1.02);
     }
+    /* Mobile Devices (≤ 640px) */
+@media (max-width: 640px) {
+    .table-wrapper {
+        overflow-x: auto; /* Enable horizontal scrolling */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling for mobile */
+    }
+
+    .students-table {
+        display: block; /* Make the table scrollable */
+        white-space: nowrap; /* Prevent table cells from wrapping */
+    }
+
+    .students-table th,
+    .students-table td {
+        text-align: left; /* Align text for better readability */
+        font-size: 0.85rem; /* Smaller font size for mobile */
+        padding: 0.8rem 0.5rem; /* Adjust padding */
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 0.5rem; /* Add spacing between buttons */
+    }
+
+    .edit-btn, .delete-btn {
+        font-size: 0.8rem; /* Smaller button text */
+        padding: 0.4rem 0.8rem; /* Adjust button padding */
+    }
+}
+
 }
 
 /* ========================================
