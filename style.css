@@ -242,19 +242,17 @@ body {
 
 .main-title i {
     margin-right: 1rem;
-    animation: bounce 2s ease infinite;
+    /* REMOVED: animation: bounce 2s ease infinite; */
+    /* ADDED: Subtle hover effect instead */
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
+/* REMOVED: @keyframes bounce - No more bouncing icons */
+
+/* ADDED: Optional hover effect for icons (only on hover, not continuous) */
+.main-title:hover i {
+    transform: scale(1.1);
+    color: var(--light-pink);
 }
 
 .subtitle {
@@ -280,14 +278,114 @@ body {
    ======================================== */
 
 .main-content {
-    max-width: 1200px;
+    max-width: 1400px; /* MASSIVELY INCREASED: From 1000px to 1400px! */
     margin: 0 auto;
-    padding: 0 1rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
+    padding: 0 2rem; /* INCREASED: More side padding */
+    display: flex;
+    flex-direction: column; /* Stack vertically */
+    gap: 2.5rem; /* Space between form and students */
+    width: 95%; /* INCREASED: Use 95% of viewport width */
+    box-sizing: border-box;
 }
+
+.form-section,
+.display-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.form-container,
+.display-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 3.5rem; /* INCREASED: From 3rem to 3.5rem for maximum space */
+    box-shadow: var(--shadow-heavy);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 320px;
+}
+
+.display-container {
+    min-height: 400px;
+    max-height: 70vh; /* INCREASED: From 65vh to 70vh */
+    overflow-y: auto;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ENHANCED: Much better table spacing and column widths */
+.table-container {
+    max-height: none;
+    overflow-y: auto;
+    margin-top: 1rem;
+    overflow-x: auto; /* ADDED: Horizontal scroll if needed */
+}
+
+.students-table {
+    width: 100%;
+    table-layout: fixed;
+    min-width: 900px; /* ADDED: Minimum width to ensure buttons are visible */
+}
+
+.students-table th,
+.students-table td {
+    padding: 1.5rem 1.2rem; /* INCREASED: Even more padding */
+    word-wrap: break-word;
+    vertical-align: middle;
+}
+
+/* OPTIMIZED: Better column widths for maximum button visibility */
+.students-table th:nth-child(1), /* ID column */
+.students-table td:nth-child(1) {
+    width: 10%; /* REDUCED: Make room for actions */
+}
+
+.students-table th:nth-child(2), /* Name column */
+.students-table td:nth-child(2) {
+    width: 22%; /* REDUCED: Make room for actions */
+}
+
+.students-table th:nth-child(3), /* Email column */
+.students-table td:nth-child(3) {
+    width: 28%; /* REDUCED: Make room for actions */
+}
+
+.students-table th:nth-child(4), /* Contact column */
+.students-table td:nth-child(4) {
+    width: 18%; /* Keep same */
+}
+
+.students-table th:nth-child(5), /* Actions column */
+.students-table td:nth-child(5) {
+    width: 22%; /* MASSIVELY INCREASED: From 15% to 22% for button visibility! */
+    min-width: 180px; /* ADDED: Minimum width guarantee */
+}
+
+/* ENHANCED: Better action buttons styling */
+.action-buttons {
+    display: flex;
+    gap: 0.8rem; /* INCREASED: More space between buttons */
+    justify-content: center;
+    flex-wrap: nowrap; /* ADDED: Prevent wrapping */
+}
+
+.edit-btn, .delete-btn {
+    padding: 0.7rem 1.2rem; /* INCREASED: Bigger buttons */
+    font-size: 0.9rem; /* INCREASED: Bigger text */
+    min-width: 70px; /* ADDED: Minimum button width */
+    white-space: nowrap; /* ADDED: Prevent text wrapping */
+}
+
 
 /* ========================================
    SECTION 7: FORM SECTION ANIMATIONS
@@ -345,12 +443,17 @@ body {
 .section-title i {
     margin-right: 0.5rem;
     color: var(--hot-pink);
-    animation: rotate 2s linear infinite;
+    /* REMOVED: animation: rotate 2s linear infinite; */
+    /* ADDED: Subtle hover effect instead */
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+/* REMOVED: @keyframes rotate - No more spinning icons! */
+
+/* ADDED: Optional hover effect for section title icons */
+.section-title:hover i {
+    color: var(--bright-purple);
+    transform: scale(1.1);
 }
 
 .section-title::after {
@@ -383,36 +486,56 @@ body {
 
 .input-group {
     position: relative;
+    margin-top: 1.5rem;
     margin-bottom: 1rem;
+}
+
+.input-group:first-child {
+    margin-top: 1rem;
 }
 
 .input-group input {
     width: 100%;
     padding: 1rem 1rem 1rem 3rem;
-    border: 2px solid transparent;
+    border: 2px solid rgba(255, 20, 147, 0.2); /* ADDED: Visible pink border */
     border-radius: 12px;
-    background: rgba(248, 249, 250, 0.8);
+    background: #ffffff; /* CHANGED: Pure white background for visibility */
     font-size: 1rem;
     font-family: inherit;
     transition: all var(--medium) ease;
     outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* ADDED: Subtle shadow for depth */
+    color: var(--dark-gray); /* ADDED: Dark text color for contrast */
+}
+
+/* ENHANCED: Better hover state */
+.input-group input:hover {
+    border-color: rgba(255, 20, 147, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
 }
 
 .input-group input:focus {
-    border-color: var(--hot-pink);
-    background: var(--white);
-    box-shadow: 0 0 0 4px rgba(255, 20, 147, 0.1);
+    border-color: var(--hot-pink); /* ENHANCED: Solid pink border when focused */
+    background: #ffffff; /* KEEP: Pure white background */
+    box-shadow: 0 0 0 4px rgba(255, 20, 147, 0.15), 0 4px 16px rgba(0, 0, 0, 0.15); /* ENHANCED: Glow + shadow */
     transform: translateY(-2px);
 }
 
-.input-group input:focus + label {
-    transform: translateY(-35px) scale(0.85);
+/* FIXED: Label moves COMPLETELY OUTSIDE the input field */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    transform: translateY(-45px) translateX(-1rem) scale(0.8);
     color: var(--hot-pink);
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
 }
 
-.input-group input:valid + label {
-    transform: translateY(-35px) scale(0.85);
+/* ADDED: Different position when field has content but not focused */
+.input-group input:not(:focus):not(:placeholder-shown) + label {
     color: var(--bright-purple);
+    transform: translateY(-45px) translateX(-1rem) scale(0.8);
 }
 
 .input-group label {
@@ -424,8 +547,12 @@ body {
     font-size: 1rem;
     pointer-events: none;
     transition: all var(--medium) cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.95); /* ENHANCED: Semi-transparent white background */
     padding: 0 0.5rem;
+    opacity: 1;
+    visibility: visible;
+    border-radius: 4px;
+    backdrop-filter: blur(10px); /* ADDED: Blur effect for modern look */
 }
 
 .input-group label i {
@@ -436,15 +563,18 @@ body {
     color: var(--hot-pink);
     font-size: 1.1rem;
     transition: all var(--medium) ease;
+    background: rgba(255, 255, 255, 0.9); /* ADDED: Background for icon visibility */
+    padding: 0.3rem;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* ADDED: Shadow for icon */
 }
 
-.input-group input:focus + label i {
-    animation: iconBounce var(--medium) ease;
-}
-
-@keyframes iconBounce {
-    0%, 100% { transform: translateY(-50%) scale(1); }
-    50% { transform: translateY(-50%) scale(1.2); }
+/* ENHANCED: Icon styling when floating */
+.input-group input:focus + label i,
+.input-group input:not(:placeholder-shown) + label i {
+    color: var(--hot-pink);
+    transform: translateY(-50%) scale(0.9);
+    background: rgba(255, 20, 147, 0.1); /* ADDED: Subtle pink background */
 }
 
 .input-border {
@@ -452,14 +582,43 @@ body {
     bottom: 0;
     left: 0;
     width: 0;
-    height: 2px;
+    height: 3px; /* INCREASED: Thicker border for better visibility */
     background: linear-gradient(90deg, var(--hot-pink), var(--bright-purple));
     transition: width var(--medium) ease;
+    border-radius: 0 0 12px 12px; /* ADDED: Rounded bottom corners */
 }
 
 .input-group input:focus ~ .input-border {
     width: 100%;
 }
+
+/* ENHANCED: Placeholder styling */
+.input-group input::placeholder {
+    color: transparent;
+}
+
+/* ADDED: Input text styling for better readability */
+.input-group input {
+    font-weight: 500; /* ADDED: Medium font weight */
+    letter-spacing: 0.5px; /* ADDED: Better letter spacing */
+}
+
+/* ADDED: Different input states for better UX */
+.input-group input:valid {
+    border-color: rgba(40, 167, 69, 0.3); /* ADDED: Green border for valid input */
+}
+
+.input-group input:invalid:not(:placeholder-shown) {
+    border-color: rgba(220, 53, 69, 0.3); /* ADDED: Red border for invalid input */
+}
+
+/* ENHANCED: Better focus ring for accessibility */
+.input-group input:focus-visible {
+    outline: 2px solid var(--hot-pink);
+    outline-offset: 2px;
+}
+
+
 
 /* ========================================
    SECTION 9: ERROR MESSAGE ANIMATIONS
@@ -564,23 +723,26 @@ body {
 
 .message-container {
     margin-bottom: 1rem;
-    min-height: 50px;
+    min-height: 40px; /* REDUCED: From 50px to 40px */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .message {
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
+    padding: 0.75rem 1.25rem; /* REDUCED: Less padding for cleaner look */
+    border-radius: 8px; /* REDUCED: Smaller border radius */
     font-weight: 500;
+    font-size: 0.9rem; /* ADDED: Slightly smaller font */
     text-align: center;
     opacity: 0;
-    transform: translateY(-20px) scale(0.8);
+    transform: translateY(-15px) scale(0.9); /* REDUCED: Less dramatic animation */
     transition: all var(--medium) ease;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem; /* REDUCED: Less gap between icon and text */
+    max-width: 90%; /* ADDED: Prevent message from being too wide */
+    line-height: 1.4; /* ADDED: Better line spacing */
 }
 
 .message.show {
@@ -592,10 +754,10 @@ body {
 @keyframes messageSlideIn {
     0% {
         opacity: 0;
-        transform: translateY(-20px) scale(0.8);
+        transform: translateY(-15px) scale(0.9); /* REDUCED: Less dramatic */
     }
     50% {
-        transform: translateY(-5px) scale(1.05);
+        transform: translateY(-2px) scale(1.02); /* REDUCED: Subtle bounce */
     }
     100% {
         opacity: 1;
@@ -604,25 +766,28 @@ body {
 }
 
 .message.success {
-    background: rgba(40, 167, 69, 0.1);
+    background: rgba(40, 167, 69, 0.15); /* INCREASED: Slightly more visible */
     color: var(--success-green);
-    border: 1px solid rgba(40, 167, 69, 0.3);
+    border: 1px solid rgba(40, 167, 69, 0.4); /* INCREASED: More visible border */
 }
 
 .message.error {
-    background: rgba(220, 53, 69, 0.1);
+    background: rgba(220, 53, 69, 0.15); /* INCREASED: Slightly more visible */
     color: var(--danger-red);
-    border: 1px solid rgba(220, 53, 69, 0.3);
+    border: 1px solid rgba(220, 53, 69, 0.4); /* INCREASED: More visible border */
 }
 
 .message i {
-    animation: iconPulse 2s ease-in-out infinite;
+    font-size: 0.9rem; /* ADDED: Smaller icon size */
+    /* REMOVED: The annoying pulsing animation */
+    transition: transform 0.2s ease; /* ADDED: Subtle transition instead */
 }
 
-@keyframes iconPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+/* ADDED: Subtle hover effect instead of constant pulsing */
+.message:hover i {
+    transform: scale(1.1);
 }
+
 
 /* ========================================
    SECTION 12: DISPLAY SECTION ANIMATIONS
@@ -859,12 +1024,17 @@ body {
 
 .students-table th i {
     margin-right: 0.5rem;
-    animation: headerIconSpin 4s linear infinite;
+    /* REMOVED: animation: headerIconSpin 4s linear infinite; */
+    /* ADDED: Subtle transition instead */
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
-@keyframes headerIconSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+/* REMOVED: @keyframes headerIconSpin - No more spinning table icons! */
+
+/* ADDED: Optional hover effect for table header icons */
+.students-table th:hover i {
+    color: var(--light-pink);
+    transform: scale(1.05);
 }
 
 .students-table tbody tr {
@@ -896,6 +1066,7 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     vertical-align: middle;
 }
+
 
 /* ========================================
    SECTION 17: ACTION BUTTONS ANIMATIONS
